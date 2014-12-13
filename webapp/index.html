@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<div>
+	<h2>Update Responses to Symptom Diagnosis</h2>
+	<form role="form">
+	  <div class="form-group">
+	    <label for="symptom">Symptom</label>
+	    <input type="text" class="form-control" id="symptom" placeholder="Enter symptom">
+	  </div>
+	  <div class="form-group">
+	    <label for="message">Message Response <small>(140 characters or less)</small></label>
+	    <input type="text" class="form-control" id="message" placeholder="Enter Message Response to Symptom">
+	  </div>
+	  <div class="form-group">
+	    <label for="node">Next Node</label>
+	    <select class="form-control">
+  			<option>1</option>
+  			<option>2</option>
+  			<option>3</option>
+  			<option>4</option>
+  			<option>5</option>
+			</select>
+	  </div>
+	  <button type="submit" class="btn btn-default">Update</button>
+	</form>
+</div>
+
+<div>
+	<h2>List of Symptoms and Responses</h2>
+	<table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Symptom</th>
+          <th>Message Response</th>
+          <th>Next Node</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
