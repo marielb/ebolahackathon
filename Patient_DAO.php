@@ -1,43 +1,48 @@
 <?php
 
+require('MySql_Connector.php'); 
+
 class Patient_DAO {
 
-	$db;
+	public $db;
 
 	public function __construct() {
-		$db = new MySql_Connector();
+		$this->db = new MySql_Connector();
 	}
 
 	public function load($name, $healerPhoneNumber) {
 		$sql = "SELECT TOP 1 PatientName, HealerPhoneNumber, Age, Gender
 			FROM tblPatient
-			WHERE PatientName = " . $name  . $healer;
+			WHERE PatientName = '" . $name  
+				.	"' AND HealerPhoneNumber = '" . $healerPhoneNumber . "'";
 
-		$this->db->query($sql);
+		return $this->db->query($sql);
 	}
 
 	public function addPatient($name, $healerPhoneNumber) {
 		$sql = "INSERT INTO tblPatient
 			(PatientName, HealerPhoneNumber)
 			VALUES
-			(" . $name . ", " . $healerPhoneNumber . ")";
+			('" . $name . "', '" . $healerPhoneNumber . "')";
 
-		$this->db->query($sql);
+		echo $sql;
+		$result = $this->db->query($sql);
+
+		echo var_dump($result);
 	}
 
 	public function updateAge($name, $healerPhoneNumber, $age) {
 		$sql = "UPDATE tblPatient
 			SET Age = " . $age . "
-			WHERE PatientName = " . $name . " AND HealerPhoneNumber = " . $healerPhoneNumber;
+			WHERE PatientName = '" . $name . "'' AND HealerPhoneNumber = '" . $healerPhoneNumber . "'";
 
 		$this->db->query($sql);
 	}
 
 	public function updateGender($name, $healerPhoneNumber, $gender) {
-		$sql = sprintf(
-			"UPDATE tblPatient
+		$sql = "UPDATE tblPatient
 			SET Age = " . $gender . "
-			WHERE PatientName = " . $name . " AND HealerPhoneNumber = " . $healerPhoneNumber;
+			WHERE PatientName = '" . $name . "'' AND HealerPhoneNumber = '" . $healerPhoneNumber . "'";
 
 		$this->db->query($sql);
 	}
