@@ -1,34 +1,43 @@
 <?php
 
+require('Patient_DAO.php'); 
+
 class Patient_Model {
 
-	$dao;
+	public $dao;
 
-	$name;
+	public $name;
 
-	$healerPhoneNumber;
+	public $healerPhoneNumber;
 
-	$age;
+	public $age;
 
-	$gender;
+	public $gender;
 
 	public function __construct($name, $healerPhoneNumber) {
-		$dao = new MySql_Connector();
+		$this->dao = new Patient_DAO();
 
 		$this->name = $name;
 		$this->healerPhoneNumber = $healerPhoneNumber;
 	}
 
-	public function addPatient($name, $healerPhoneNumber) {
-		$this->dao->query($name, $healerPhoneNumber);
+	public function load() {
+		$result = $this->dao->load($this->name, $this->healerPhoneNumber);
+
+		$this->age = $result['Age'];
+		$this->gender = $result['Gender'];
+	}
+
+	public function addPatient() {
+		$this->dao->addPatient($this->name, $this->healerPhoneNumber);
 	}
 
 	public function updateAge($age) {
-		$this->dao->query($this->name, $this->healerPhoneNumber, $age);
+		$this->dao->updateAge($this->name, $this->healerPhoneNumber, $age);
 	}
 
 	public function updateGender($gender) {
-		$this->dao->query($this->name, $this->healerPhoneNumber, $gender);
+		$this->dao->updateGender($this->name, $this->healerPhoneNumber, $gender);
 	}
 }
 
