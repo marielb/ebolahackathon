@@ -1,33 +1,52 @@
 <?php
 
-require('MySql_Connector.php'); 
+require_once('MySql_Connector.php'); 
 
-class Patient_DAO {
+class Message_DAO {
 
 	public $db;
 
-	public function __construct() {
-		$this->db = new MySql_Connector();
+	public function __construct($db) {
+		$this->db = $db;
 	}
 
-	public function logMessage($healerPhoneNumber) {
-		$sql = $this->db->mysqli->prepare("INSERT INTO tblConversation
-			SET PhoneNumber = ?");
+	public function logMessage($healerPhoneNumber, $message, $stepID) {
+		$sql = $this->db->mysqli->prepare("INSERT INTO 
+			tblConversation (PhoneNumber, Message, Step)
+			VALUES (?, ?, ?)");
 
-		$statement->bind_param("s", $healerPhoneNumber);
+
+		$sql->bind_param("ssi", $healerPhoneNumber, $message, $stepID);
 
 		return $this->db->query($sql);
 	}
 
 	public function getCurrentStep($healerPhoneNumber) {
-		$statement = $this->db->mysqli->prepare("SELECT TOP 1 Step 
+		$sql = $this->db->mysqli->prepare("SELECT Step 
 			FROM tblConversation
 			WHERE PhoneNumber = ?
-			ORDER BY Timestamp desc");
+			ORDER BY Timestamp desc
+			LIMIT 1");
 
-		$statement->bind_param("s", $healerPhoneNumber);
+		$sql->bind_param("s", $healerPhoneNumber);
 
-		return $this->db->query($statement);
+		$result = $this->db->queryToArray($sql);
+
+		if (count($result) == 0) {
+			return -1;
+		}
+
+		return $result[0]['Step'];
+	}
+
+	public function clear($healerPhoneNumber) {
+		$sql = $this->db->mysqli->prepare("DELETE 
+			FROM tblConversation
+			WHERE PhoneNumber = ?");
+
+		$sql->bind_param("s", $healerPhoneNumber);
+
+		$this->db->query($sql);
 	}
 
 }

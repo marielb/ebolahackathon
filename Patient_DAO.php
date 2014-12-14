@@ -1,13 +1,13 @@
 <?php
 
-require('MySql_Connector.php'); 
+require_once('MySql_Connector.php'); 
 
 class Patient_DAO {
 
 	public $db;
 
-	public function __construct() {
-		$this->db = new MySql_Connector();
+	public function __construct($db) {
+		$this->db = $db;
 	}
 
 	public function load($name, $healerPhoneNumber) {
@@ -15,7 +15,9 @@ class Patient_DAO {
 			FROM tblPatient
 			WHERE PatientName = ? AND HealerPhoneNumber = ?";
 
-		return $this->db->query($sql);
+		$result = $this->db->queryToArray($sql);
+
+		return $result[0];
 	}
 
 	public function addPatient($name, $healerPhoneNumber) {

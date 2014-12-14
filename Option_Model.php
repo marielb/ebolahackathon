@@ -1,32 +1,32 @@
 <?php
 
-require('Option_DAO.php'); 
+require_once('Option_DAO.php'); 
 
 class Option_Model {
 
 	public $dao;
 
-	public $optionId;
+	public $optionID;
 
 	public $optionText;
 
 	public $nextStep;
 
 
-	public function __construct($optionId, $optionText, $nextStep) {
-		$dao = new Options_DAO();
+	public function __construct($db, $optionID, $optionText, $nextStep) {
+		$dao = new Option_DAO($db);
 
-		$this->optionId = $optionId;
+		$this->optionID = $optionID;
 		$this->optionText = $optionText;
 		$this->nextStep = $nextStep;
 	}
 
 	public function getNextStep() {
-		return $this->dao->getNextStep($this->optionId);
+		return $this->dao->getNextStep($this->optionID);
 	}
 
 	public function getOptionText() {
-		return $this->dao->getOptionText($this->optionId);
+		return $this->dao->getOptionText($this->optionID);
 	}
 
 }
