@@ -22,26 +22,29 @@ class Steps_DAO {
 		$sql = "INSERT INTO tblSteps
 			(Question, Response, StepID)
 			VALUES
-			('" . $question . "', '" . $response . "', " . $stepId . ")";
+			(?,?,?)";
 
-		echo $sql;
-		$result = $this->db->query($sql);
+		$sql->bind_param("ssi", $question, $response, $stepId);
 
-		echo var_dump($result);
+		$this->db->query($sql);
 	}
 
 	public function updateQuestion($stepId, $question) {
 		$sql = "UPDATE tblSteps
-			SET Question = " . $question . "
-			WHERE StepID = " . $stepId;
+			SET Question = ?
+			WHERE StepID = ?";
+		
+		$sql->bind_param("si", $question, $stepId);
 
 		$this->db->query($sql);
 	}
 
 	public function updateResponse($stepId, $response) {
 		$sql = "UPDATE tblSteps
-			SET Response = " . $response . "
-			WHERE $stepId = " . $stepId;
+			SET Response = ?
+			WHERE $stepId = ?";
+
+		$sql->bind_param("si", $response, $stepId);
 
 		$this->db->query($sql);
 	}
