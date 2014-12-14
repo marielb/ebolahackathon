@@ -18,7 +18,7 @@ class Message_Model {
 	}
 
 	public function logMessage() {
-		$this->dao->addPatient($this->name, $this->healerPhoneNumber);
+		$this->dao->logMessage($this->name, $this->healerPhoneNumber);
 	}
 
 	public function getCurrentStep() {
@@ -27,11 +27,11 @@ class Message_Model {
 	}
 
 	public function getNextMessage($input) {
-		// parent id = getcurrentstep
-		// load all nodes (parentid)
+		// stepid = getcurrentstep
+		// load options (stepid)
 		// match the node with the input (currNode, input)
 		// look up the message by the node value
-		// return message
+		// return step->questions + foreach option->optiontext
 		$this->dao->getNextMessage($this->name, $this->healerPhoneNumber, $isFemale);
 	}
 }

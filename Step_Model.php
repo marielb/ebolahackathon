@@ -12,6 +12,8 @@ class Step_Model {
 
 	public $response;
 
+	public $options;
+
 	public function __construct($stepId, $question, $response) {
 		$this->dao = new Steps_DAO();
 
@@ -39,6 +41,14 @@ class Step_Model {
 
 	public function updateResponse($response) {
 		$this->dao->updateResponse($this->stepId, $response);
+	}
+
+	public function getOptions() {
+		// TODO
+	}
+
+	public function getNextMessage($message) {
+		// TODO
 	}
 }
 

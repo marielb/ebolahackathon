@@ -2,7 +2,7 @@
 
 require('MySql_Connector.php'); 
 
-class Node_DAO {
+class Option_DAO {
 
 	$db;
 

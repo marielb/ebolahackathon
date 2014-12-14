@@ -1,18 +1,16 @@
 <?php
 
-require('Node_DAO.php'); 
+require('Option_DAO.php'); 
 
-class Node_Model {
+class Option_Model {
 
 	public $dao;
 
 	public $key;
 
-	public $node;
-
 	public $parentStepId;
 
-	public $nodes;
+	public $nextStep
 
 
 	public function __construct($key, $parentStepId, $node, $nodes) {
@@ -43,6 +41,11 @@ class Node_Model {
 	public function updateParentStepId($parentStepId) {
 		$this->dao->updateParentStepId($this->node, $parentStepId);
 	}
+
+	public function getNextStep() {
+		return $this->dao->getNextStep();
+	}
+
 }
 
 ?>
