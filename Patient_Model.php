@@ -14,8 +14,8 @@ class Patient_Model {
 
 	public $isFemale;
 
-	public function __construct($name, $healerPhoneNumber) {
-		$this->dao = new Patient_DAO();
+	public function __construct($db, $name, $healerPhoneNumber) {
+		$this->dao = new Patient_DAO($db);
 
 		$this->name = $name;
 		$this->healerPhoneNumber = $healerPhoneNumber;
