@@ -2,7 +2,12 @@
 
 require_once('Message_Model.php'); 
 
-$message = new Message_Model();
+$mysqli = new MySql_Connector();
+
+$message = new Message_Model($mysqli, "", "");
 
 echo $message->getAllAlerts();
+
+$mysqli->close();
+
 ?>

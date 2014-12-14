@@ -50,9 +50,10 @@ class Message_DAO {
 	}
 
 	public function getAllAlerts() {
-		$sql = $this->db->mysqli->prepare("SELECT PhoneNumber, Message 
+		$sql = $this->db->mysqli->prepare("SELECT PhoneNumber, Message, Timestamp as TimeReported
 			FROM tblConversation
-			WHERE Message = '16' OR Message = '15'");
+			WHERE Message = '16' OR Message = '15'
+			ORDER BY Timestamp DESC");
 
 		return $this->db->queryToArray($sql);
 	}

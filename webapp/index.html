@@ -10,25 +10,27 @@
 <body ng-app="smsApp">
     <div class="header">
       <h1>Hack-w/Healer</h1>
-      <h2><small>Text the Number Below</small></h2>
-      <h2>443-568-3935</h2>
+      <h2 class="text-danger">Text "Go" to 443-568-3935</h2>
     </div>
 
     <div ng-controller="AppCtrl">
       <div> 
-      	<h2>List of Villages</h2>
+      	<h2>List of Reported cases</h2>
       	<table class="table table-striped">
             <thead>
               <tr>
                 <th>Phone Number</th>
                 <th>Reported Case</th>
+                <th>Timestamp</th>
               </tr>
             </thead>
             <tbody>
-              <tr data-ng-repeat="data in people" data-ng-class="{'danger': data.Message == 15}">
+              <tr data-ng-repeat="data in people" data-ng-class="{'warning': data.Message == '15', 'danger': data.Message == '16'}">
                 <td>{{ data.PhoneNumber }}</td>
-                <td><span ng-if="data.Message=15">Patient is on their way to ETU</span>
-                  {{ data.Message }}</td>
+                <td>
+                  <span ng-if="data.Message=='15'">Patient is on their way to ETU</span>
+                  <span ng-if="data.Message=='16'">Patient requires pickup</span></td>
+                <td>{{ data.TimeReported }}</td>
               </tr>
             </tbody>
           </table>
