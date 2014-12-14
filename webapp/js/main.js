@@ -1,6 +1,6 @@
 var app = angular.module('smsApp', ['ngRoute', 'restangular', 'chart.js']);
 
-app.controller('AppCtrl', ['$scope','InformationService',function($scope, InformationService) {
+app.controller('AppCtrl', ['$scope', '$timeout', 'InformationService',function($scope, $timeout, InformationService) {
 
     var callService = function() {
         InformationService.getData().then(function(data) {
@@ -14,11 +14,9 @@ app.controller('AppCtrl', ['$scope','InformationService',function($scope, Inform
             callService();
             poll();
         }, 1000);
-    };     
+    };
     poll();
     
-
-
 }]);
 
 app.directive('enter', function() {
