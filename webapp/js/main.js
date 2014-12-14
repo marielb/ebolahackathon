@@ -2,14 +2,22 @@ var app = angular.module('smsApp', ['ngRoute', 'restangular', 'chart.js']);
 
 app.controller('AppCtrl', ['$scope','InformationService',function($scope, InformationService) {
 
-    $scope.deleteTweets = function() {
-        alert(InformationService.getData());
-    }
+    var callService = function() {
+        InformationService.getData().then(function(data) {
+            $scope.people = data;
+            console.log('test');
+        });
+    };
 
-    InformationService.getData().then(function(data) {
-        $scope.people = data;
-        console.log('test');
-    });
+    var poll = function() {
+        $timeout(function() {
+            callService();
+            poll();
+        }, 1000);
+    };     
+    poll();
+    
+
 
 }]);
 
