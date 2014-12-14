@@ -8,6 +8,11 @@
 </head>
 
 <body ng-app="smsApp">
+    <div class="header">
+      <h1>Hack-w/Healer</h1>
+      <h2></h2>
+      <h2>443-568-3935</h2>
+    </div>
 
     <div class="col-lg-6 col-sm-12" id="doughnut-chart" ng-controller="DoughnutCtrl">
       <div class="panel panel-default">
@@ -26,15 +31,15 @@
       	<table class="table table-striped">
             <thead>
               <tr>
-                <th>#</th>
-                <th>Symptom</th>
-                <th>Message Response</th>
-                <th>Next Node</th>
+                <th>Phone Number</th>
+                <th>Reported Case</th>
               </tr>
             </thead>
             <tbody>
-              <tr data-ng-repeat="data in labels">
-                <td>{{ data }}</td>
+              <tr data-ng-repeat="data in people" data-ng-class="{'danger': data.Message == 15}">
+                <td>{{ data.PhoneNumber }}</td>
+                <td><span ng-if="data.Message=15">Patient is on their way to ETU</span>
+                  {{ data.Message }}</td>
               </tr>
             </tbody>
           </table>

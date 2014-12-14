@@ -1,15 +1,16 @@
 var app = angular.module('smsApp', ['ngRoute', 'restangular', 'chart.js']);
 
 app.controller('AppCtrl', ['$scope','InformationService',function($scope, InformationService) {
-    $scope.loadMoreTweets = function() {
-        alert('Loading tweets!');
-    }
 
     $scope.deleteTweets = function() {
         alert(InformationService.getData());
     }
 
-    $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+    InformationService.getData().then(function(data) {
+        $scope.people = data;
+        console.log('test');
+    });
+    
 }]);
 
 app.directive('enter', function() {
@@ -30,17 +31,16 @@ app.controller("DoughnutCtrl", ['$scope', '$timeout', function ($scope, $timeout
 }]);
 
 app.config(function (RestangularProvider) {
-    RestangularProvider.setBaseUrl('https://marielbartolo.me/');
+    RestangularProvider.setBaseUrl('https://marielbartolo.me/ebolahackathon/');
 });
 
 app.service('InformationService', ['Restangular', function(Restangular) {
     var informationService = {};
 
     informationService.getData = function() {
-        //var info = Restangular.one('information.php').get();
-        return 'test';
+        var info = Restangular.one('alerts.php').get();
+        return info;
     };
 
     return informationService;
-
 }]);
