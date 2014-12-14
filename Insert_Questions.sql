@@ -6,14 +6,14 @@ insert into tblStepMessage
 #options for step 1
 insert into tblStep 
 	(stepid, optionid) values 
-	(0, 0), (0,1), (0, 2);
+	(0, 1), (0,2), (0, 3);
 
 insert into tblOption
 	(optionid, nextstep, optiontext) 
 	values 
-	(0, 1, 'I have a patient who has had direct skin contact with bodily fluids of an ebola patient'), 
-	(1, 2,  'I have a patient who is experiencing other symptoms'),
-	(2, 3,  'I have a corpse to report');
+	(1, 1, 'I have a patient who has had direct skin contact with bodily fluids of an ebola patient'), 
+	(2, 2,  'I have a patient who is experiencing other symptoms'),
+	(3, 3,  'I have a corpse to report');
 
 #step 1-1, I have a patient who has had direct skin contact with bodily fluids of an ebola patient
 		insert into tblStepMessage (stepid, message) values 
@@ -59,7 +59,7 @@ insert into tblOption
 		insert into tblOption
 			(optionid, nextstep, optiontext) 
 			values 
-			(13, NULL, 'Please Enter an Address.');
+			(13, 8, 'Please Enter an Address.');
 		# END
 
 #step 1-1-4, Does your patient have a fever?(101.5F/38.6C) -- YES
@@ -86,17 +86,25 @@ insert into tblStepMessage (stepid, message)
 
 insert into tblStep
 	(stepid, optionid) values 
-	(6, 15), (6,16);
+	(6, 16), (6,17);
 
 insert into tblOption
 	(optionid, nextstep, optiontext) 
 	values 
-	(15, 8, 'Yes'), 
-	(16, 7,  'No');
+	(16, 8, 'Yes'), 
+	(17, 7,  'No');
 
 insert into tblStepMessage (stepid, message)
-	values (7, "It's really important for us to know. Please let us know as soon as possible.");
+	values (7, "It's very important for us to know. Please let us know as soon as possible.");
+
+	insert into tblStep
+	(stepid, optionid) values 
+	(7, NULL);
 
 insert into tblStepMessage (stepid, message)
 	values (8, "Thank you. It's really important for us to know.");
+
+	insert into tblStep
+	(stepid, optionid) values 
+	(8, NULL);
 
