@@ -10,41 +10,26 @@ class Option_DAO {
 		$db = new MySql_Connector();
 	}
 
-	public function loadNodes() {
-		$sql = "SELECT * FROM tblNode";
+	public function getNextStep($optionId) {
+		$sql = $this->db->mysqli->prepare("SELECT NextStep
+			FROM tblOption
+			WHERE OptionID = ?");
+
+		$sql->bind_param("i", $optionId);
 
 		$this->db->query($sql);
 	}
 
-	public function loadNodesByParentStepId($parentStepId) {
-		$sql = "SELECT *
-			FROM tblNode
-			WHERE ParentStepID = ?";
+	public function getOptionText($optionId) {
+		$sql = $this->db->mysqli->prepare("SELECT OptionText
+			FROM tblOption
+			WHERE OptionID = ?");
 
-		$sql->bind_param("i", $parentStepId);
-
-		$this->db->query($sql);
-	}
- 
-	public function updateKey($node, $key) {
-		$sql = "UPDATE tblNode
-			SET Key = ?
-			WHERE NodeID = ?";
-
-		$sql->bind_param("si", $key, $node);
+		$sql->bind_param("i", $optionId);
 
 		$this->db->query($sql);
 	}
 
-	public function updateParentStepId($node, $parentStepId) {
-		$sql = "UPDATE tblNode
-			SET ParentStepID = ?
-			WHERE NodeID = ?";
-
-		$sql->bind_param("ii", $parentStepId, $node);
-
-		$this->db->query($sql);
-	}
 }
 
 ?>

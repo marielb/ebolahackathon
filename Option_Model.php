@@ -6,44 +6,27 @@ class Option_Model {
 
 	public $dao;
 
-	public $key;
+	public $optionId;
 
-	public $parentStepId;
+	public $optionText;
 
-	public $nextStep
+	public $nextStep;
 
 
-	public function __construct($key, $parentStepId, $node, $nodes) {
-		$dao = new Node_DAO();
+	public function __construct($optionId, $optionText, $nextStep) {
+		$dao = new Options_DAO();
 
-		$this->key = $key;
-		$this->parentStepId = $parentStepId;
-		$this->node = $node;
-		$this->nodes = $nodes;
-	}
-
-	public function loadNodes() {
-		$result = $this->dao->loadNodes();
-
-		$this->nodes = $result['Nodes'];
-	}
-
-	public function loadNodesByParentStepId($parentStepId) {
-		$result = $this->dao->loadNodesByParentStepId($this->$parentStepId);
-
-		$this->nodes = $result['Nodes'];
-	}
-
-	public function updateKey($key) {
-		$this->dao->updateKey($this->node, $key);
-	}
-
-	public function updateParentStepId($parentStepId) {
-		$this->dao->updateParentStepId($this->node, $parentStepId);
+		$this->optionId = $optionId;
+		$this->optionText = $optionText;
+		$this->nextStep = $nextStep;
 	}
 
 	public function getNextStep() {
-		return $this->dao->getNextStep();
+		return $this->dao->getNextStep($this->optionId);
+	}
+
+	public function getOptionText() {
+		return $this->dao->getOptionText($this->optionId);
 	}
 
 }
