@@ -1,8 +1,8 @@
 <?php
 
-require('Steps_DAO.php'); 
+require('Step_DAO.php'); 
 
-class Steps_Model {
+class Step_Model {
 
 	public $dao;
 

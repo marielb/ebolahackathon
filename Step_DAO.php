@@ -2,7 +2,7 @@
 
 require('MySql_Connector.php'); 
 
-class Steps_DAO {
+class Step_DAO {
 
 	public $db;
 
