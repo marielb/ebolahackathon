@@ -12,7 +12,7 @@ class Patient_Model {
 
 	public $age;
 
-	public $gender;
+	public $isFemale;
 
 	public function __construct($name, $healerPhoneNumber) {
 		$this->dao = new Patient_DAO();
@@ -25,7 +25,7 @@ class Patient_Model {
 		$result = $this->dao->load($this->name, $this->healerPhoneNumber);
 
 		$this->age = $result['Age'];
-		$this->gender = $result['Gender'];
+		$this->isFemale = $result['IsFemale'];
 	}
 
 	public function addPatient() {
@@ -36,8 +36,8 @@ class Patient_Model {
 		$this->dao->updateAge($this->name, $this->healerPhoneNumber, $age);
 	}
 
-	public function updateGender($gender) {
-		$this->dao->updateGender($this->name, $this->healerPhoneNumber, $gender);
+	public function updateGender($isFemale) {
+		$this->dao->updateGender($this->name, $this->healerPhoneNumber, $isFemale);
 	}
 }
 

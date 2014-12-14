@@ -13,38 +13,40 @@ class Patient_DAO {
 	public function load($name, $healerPhoneNumber) {
 		$sql = "SELECT TOP 1 PatientName, HealerPhoneNumber, Age, Gender
 			FROM tblPatient
-			WHERE PatientName = '" . $name  
-				.	"' AND HealerPhoneNumber = '" . $healerPhoneNumber . "'";
+			WHERE PatientName = ? AND HealerPhoneNumber = ?";
 
 		return $this->db->query($sql);
 	}
 
 	public function addPatient($name, $healerPhoneNumber) {
-		$sql = "INSERT INTO tblPatient
+		$statement = "INSERT INTO tblPatient
 			(PatientName, HealerPhoneNumber)
 			VALUES
-			('" . $name . "', '" . $healerPhoneNumber . "')";
+			(?, ?)";
 
-		echo $sql;
-		$result = $this->db->query($sql);
+		$statement->bind_param("ss", $name, $healerPhoneNumber);
 
-		echo var_dump($result);
+		$this->db->query($statement);
 	}
 
 	public function updateAge($name, $healerPhoneNumber, $age) {
-		$sql = "UPDATE tblPatient
-			SET Age = " . $age . "
-			WHERE PatientName = '" . $name . "'' AND HealerPhoneNumber = '" . $healerPhoneNumber . "'";
+		$statement = "UPDATE tblPatient
+			SET Age = ?
+			WHERE PatientName = ? AND HealerPhoneNumber = ?";
 
-		$this->db->query($sql);
+		$statement->bind_param("ss", $age, $name, $healerPhoneNumber);
+
+		$this->db->query($statement);
 	}
 
-	public function updateGender($name, $healerPhoneNumber, $gender) {
-		$sql = "UPDATE tblPatient
-			SET Age = " . $gender . "
-			WHERE PatientName = '" . $name . "'' AND HealerPhoneNumber = '" . $healerPhoneNumber . "'";
+	public function updateGender($name, $healerPhoneNumber, $isFemale) {
+		$statement = "UPDATE tblPatient
+			SET IsFemale = ?
+			WHERE PatientName = ? AND HealerPhoneNumber = ?";
 
-		$this->db->query($sql);
+		$statement->bind_param("iss", $isFemale, $name, $healerPhoneNumber);
+
+		$this->db->query($statement);
 	}
 }
 
