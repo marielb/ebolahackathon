@@ -4,37 +4,36 @@ require('Node_DAO.php');
 
 class Node_Model {
 
-	$dao;
+	public $dao;
 
-	$key;
+	public $key;
 
-	$node;
+	public $node;
 
-	$parentStepId;
+	public $parentStepId;
+
+	public $nodes;
 
 
-	public function __construct($key, $parentStepId, $node) {
+	public function __construct($key, $parentStepId, $node, $nodes) {
 		$dao = new Node_DAO();
 
 		$this->key = $key;
 		$this->parentStepId = $parentStepId;
 		$this->node = $node;
+		$this->nodes = $nodes;
 	}
 
 	public function loadNodes() {
 		$result = $this->dao->loadNodes();
 
-		// $this->node = $result['Node'];
-		// $this->parentStepId = $result['ParentStepId'];
-		// $this->key = $result['Key'];
+		$this->nodes = $result['Nodes'];
 	}
 
 	public function loadNodesByParentStepId($parentStepId) {
 		$result = $this->dao->loadNodesByParentStepId($this->$parentStepId);
 
-		// $this->node = $result['Node'];
-		// $this->parentStepId = $result['ParentStepId'];
-		// $this->key = $result['Key'];
+		$this->nodes = $result['Nodes'];
 	}
 
 	public function updateKey($key) {
