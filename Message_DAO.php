@@ -49,6 +49,14 @@ class Message_DAO {
 		$this->db->query($sql);
 	}
 
+	public function getAllAlerts() {
+		$sql = $this->db->mysqli->prepare("SELECT PhoneNumber, Message 
+			FROM tblConversation
+			WHERE Message = '16' OR Message = '15'");
+
+		return $this->db->queryToArray($sql);
+	}
+
 }
 
 ?>

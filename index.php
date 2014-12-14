@@ -14,7 +14,7 @@ $twilio = new TwilioAuth();
 $text = $_REQUEST['Body'];
 $number = $_REQUEST['From'];
 
-// $text = "16";
+// $text = "1";
 // $number = "+14438513816";
 
 $message = 'Please provide a valid number';
