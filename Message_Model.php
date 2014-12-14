@@ -18,21 +18,28 @@ class Message_Model {
 	}
 
 	public function logMessage() {
-		$this->dao->logMessage($this->name, $this->healerPhoneNumber);
+		$this->dao->logMessage($this->healerPhoneNumber);
 	}
 
 	public function getCurrentStep() {
-		// look in tblConversation for current Step
-		$this->dao->getCurrentStep($this->name, $this->healerPhoneNumber, $age);
+		$result = $this->dao->getCurrentStep($this->healerPhoneNumber);
+
+		if (empty($result)) {
+			return 0;
+		} else {
+			return $result;
+		}
 	}
 
 	public function getNextMessage($input) {
-		// stepid = getcurrentstep
-		// load options (stepid)
-		// match the node with the input (currNode, input)
-		// look up the message by the node value
-		// return step->questions + foreach option->optiontext
-		$this->dao->getNextMessage($this->name, $this->healerPhoneNumber, $isFemale);
+		$step = new Step_Model($this->getCurrentStep());
+		$step->loadOptions();
+
+		if ($step->stepID == 0) {
+			return $step->getQuestion();
+		} else {
+			return $step->getNextMessage($input);
+		}
 	}
 }
 

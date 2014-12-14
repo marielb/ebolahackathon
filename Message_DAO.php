@@ -10,33 +10,24 @@ class Patient_DAO {
 		$this->db = new MySql_Connector();
 	}
 
-	public function logMessage($name, $healerPhoneNumber) {
-		$sql = "SELECT TOP 1 PatientName, HealerPhoneNumber, Age, Gender
-			FROM tblPatient
-			WHERE PatientName = ? AND HealerPhoneNumber = ?";
+	public function logMessage($healerPhoneNumber) {
+		$sql = $this->db->mysqli->prepare("INSERT INTO tblConversation
+			SET PhoneNumber = ?");
+
+		$statement->bind_param("s", $healerPhoneNumber);
 
 		return $this->db->query($sql);
 	}
 
-	public function getCurrentStep($name, $healerPhoneNumber) {
-		$statement = $this->db->mysqli->prepare("INSERT INTO tblPatient
-			(PatientName, HealerPhoneNumber)
-			VALUES
-			(?, ?)");
+	public function getCurrentStep($healerPhoneNumber) {
+		$statement = $this->db->mysqli->prepare("SELECT TOP 1 Step 
+			FROM tblConversation
+			WHERE PhoneNumber = ?
+			ORDER BY Timestamp desc");
 
-		$statement->bind_param("ss", $name, $healerPhoneNumber);
+		$statement->bind_param("s", $healerPhoneNumber);
 
-		$this->db->query($statement);
-	}
-
-	public function getNextMessage($name, $healerPhoneNumber, $age) {
-		$statement = $this->db->mysqli->prepare("UPDATE tblPatient
-			SET Age = ?
-			WHERE PatientName = ? AND HealerPhoneNumber = ?");
-
-		$statement->bind_param("iss", $age, $name, $healerPhoneNumber);
-
-		$this->db->query($statement);
+		return $this->db->query($statement);
 	}
 
 }

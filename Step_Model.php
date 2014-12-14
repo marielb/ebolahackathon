@@ -8,47 +8,52 @@ class Step_Model {
 
 	public $stepId;
 
-	public $question;
-
-	public $response;
+	public $message;
 
 	public $options;
 
-	public function __construct($stepId, $question, $response) {
+	public function __construct($stepId) {
 		$this->dao = new Steps_DAO();
-
 		$this->stepId = $stepId;
-		$this->question = $question;
-		$this->response = $response;
-	}
-
-	public function loadInitialStep() {
-		$result = $this->dao->loadInitialStep();
-
-		$this->stepId = $result['StepId'];
-		$this->question = $result['Question'];
-		$this->response = $result['Response'];
 	}
 
 
-	public function addStep($question, $stepId, $response) {
-		$this->dao->addStep($question, $stepId, $response);
+	public function loadOptions() {
+		$result = $this->dao->loadOptions($this->stepId);
+		$this->options = [];
+
+		foreach ($result as $option) {
+			$this->options[] = new Option_Model(
+				$option['OptionID'],
+				$option['OptionText'],
+				$option['NextStep']
+			)
+		}
 	}
 
-	public function updateQuestion($question) {
-		$this->dao->updateQuestion($this->stepId, $question);
+	public function getNextMessage($input) {
+		foreach ($this->options as $option) {
+			if ($option->optionText == $input) {
+				$nextStep = new Step_Model($option->nextStep);
+				return $nextStep->getQuestion();
+			}
+		}
 	}
 
-	public function updateResponse($response) {
-		$this->dao->updateResponse($this->stepId, $response);
+	public function getStepMessage() {
+		$str = $this->dao->getStepMessage($this->stepId);
 	}
 
-	public function getOptions() {
-		// TODO
-	}
+	public function getQuestion() {
+		$str = $this->getStepMessage($this->$stepId);
 
-	public function getNextMessage($message) {
-		// TODO
+		$count = 1;
+		foreach ($this->options as $option) {
+			$str .= "\n" . $count . ": "  . $option->optionText;
+			$count += 1;
+		}
+
+		return $str;
 	}
 }
 

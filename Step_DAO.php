@@ -10,43 +10,28 @@ class Step_DAO {
 		$this->db = new MySql_Connector();
 	}
 
-	public function loadInitialStep() {
-		$sql = "SELECT TOP 1 *
-			FROM tblSteps
-			WHERE StepID = 0";
+	public function loadOptions($stepId) {
+		$sql = $this->db->mysqli->prepare("SELECT *
+			FROM tblStep
+			INNER JOIN tblOption
+			ON tblStep.OptionID = tblOption.OptionID
+			WHERE StepID = ?");
+
+		$sql->bind_param("i", $stepId);
 
 		return $this->db->query($sql);
 	}
 
-	public function addStep($question, $stepId, $response) {
-		$sql = "INSERT INTO tblSteps
-			(Question, Response, StepID)
-			VALUES
-			(?,?,?)";
+	public function getStepMessage($stepId) {
+		$sql = $this->db->mysqli->prepare("SELECT Message
+			FROM tblStep
+			INNER JOIN tblStepMessage
+			ON tblStep.StepID = tblStepMessage.StepID
+			WHERE StepID = ?");
 
-		$sql->bind_param("ssi", $question, $response, $stepId);
+		$sql->bind_param("i", $stepId);
 
-		$this->db->query($sql);
-	}
-
-	public function updateQuestion($stepId, $question) {
-		$sql = "UPDATE tblSteps
-			SET Question = ?
-			WHERE StepID = ?";
-		
-		$sql->bind_param("si", $question, $stepId);
-
-		$this->db->query($sql);
-	}
-
-	public function updateResponse($stepId, $response) {
-		$sql = "UPDATE tblSteps
-			SET Response = ?
-			WHERE $stepId = ?";
-
-		$sql->bind_param("si", $response, $stepId);
-
-		$this->db->query($sql);
+		return $this->db->query($sql);
 	}
 }
 

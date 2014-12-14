@@ -18,7 +18,13 @@ $client = new Services_Twilio($account_sid, $auth_token);
 // 	$patient->addPatient();
 // }
 
-$message = "Success, hopefully";
+
+$message_model = new Message_Model('+14438513816', 'yo');
+$message_model->logMessage();
+
+$message = $message_model->getNextMessage();
+
+echo $message;
 
 // $sms = $client->account->messages->sendMessage(
 //     "443-568-3935", $number, $message
@@ -28,6 +34,6 @@ $patient = new Patient_Model('Test', '1');
 $patient->addPatient();
 
 ?>
-<Response>
-    <Message>Adding Patient</Message>
-</Response>
+<!-- <Response>
+    <Message><?= $message ?></Message>
+</Response> -->
