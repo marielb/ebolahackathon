@@ -2,25 +2,28 @@
 
 class MySql_Connector {
 
-	public function query($sql) {
-		mysql_connect("marielrb.webfactional.com", "marielrb_ebola", "043908mb");
-		mysql_select_db("ebolapatientlog") or die("Unable to select database");
+	public function query($statement) {
+		mysqli_connect("marielrb.webfactional.com", "marielrb_ebola", "043908mb");
+		mysqli_select_db("ebolapatientlog") or die("Unable to select database");
 
 		$result = mysql_query($sql);
 
-		mysql_close();
+		mysqli_close();
 
 		return $result;
 	}
 
-	public function queryToArray($sql) {
-		mysql_connect("marielrb.webfactional.com", "marielrb_ebola", "043908mb");
-		mysql_select_db("ebolapatientlog") or die("Unable to select database");
+	public function queryToArray($statement) {
+		mysqli_connect("marielrb.webfactional.com", "marielrb_ebola", "043908mb");
+		mysqli_select_db("ebolapatientlog") or die("Unable to select database");
 
 		$result = mysql_query($sql);
 		$resultToArray = mysql_fetch_array($result);
 
-		mysql_close();
+    $statement->execute();
+    $statement->close();
+
+		mysqli_close();
 
 		return $resultToArray;
 	}
