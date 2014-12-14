@@ -81,18 +81,22 @@ insert into tblOption
 insert into tblStepMessage (stepid, message)
 	values (5, "Great! The patient seems fine, please keep an outlook for any symptoms.");
 
+	insert into tblStep
+	(stepid, optionid) values 
+	(5, NULL);
+
 insert into tblStepMessage (stepid, message)
 	values (6, "Here is an ETU Ambulance Taxi Voucher Number: 34562, Please respond to let us know when the Patient is on their way");
 
-insert into tblStep
-	(stepid, optionid) values 
-	(6, 16), (6,17);
+	insert into tblStep
+		(stepid, optionid) values 
+		(6, 16), (6,17);
 
-insert into tblOption
-	(optionid, nextstep, optiontext) 
-	values 
-	(16, 8, 'Yes'), 
-	(17, 7,  'No');
+	insert into tblOption
+		(optionid, nextstep, optiontext) 
+		values 
+		(16, 8, 'Yes'), 
+		(17, 7,  'No');
 
 insert into tblStepMessage (stepid, message)
 	values (7, "It's very important for us to know. Please let us know as soon as possible.");
