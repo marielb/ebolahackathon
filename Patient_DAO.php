@@ -19,10 +19,10 @@ class Patient_DAO {
 	}
 
 	public function addPatient($name, $healerPhoneNumber) {
-		$statement = "INSERT INTO tblPatient
+		$statement = $this->db->mysqli->prepare("INSERT INTO tblPatient
 			(PatientName, HealerPhoneNumber)
 			VALUES
-			(?, ?)";
+			(?, ?)");
 
 		$statement->bind_param("ss", $name, $healerPhoneNumber);
 
