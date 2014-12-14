@@ -10,7 +10,7 @@ app.controller('AppCtrl', ['$scope','InformationService',function($scope, Inform
         $scope.people = data;
         console.log('test');
     });
-    
+
 }]);
 
 app.directive('enter', function() {
@@ -31,7 +31,7 @@ app.controller("DoughnutCtrl", ['$scope', '$timeout', function ($scope, $timeout
 }]);
 
 app.config(function (RestangularProvider) {
-    RestangularProvider.setBaseUrl('https://marielbartolo.me/ebolahackathon/');
+    RestangularProvider.setBaseUrl('http://marielbartolo.me/ebolahackathon/');
 });
 
 app.service('InformationService', ['Restangular', function(Restangular) {

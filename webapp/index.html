@@ -10,22 +10,11 @@
 <body ng-app="smsApp">
     <div class="header">
       <h1>Hack-w/Healer</h1>
-      <h2></h2>
+      <h2><small>Text the Number Below</small></h2>
       <h2>443-568-3935</h2>
     </div>
 
-    <div class="col-lg-6 col-sm-12" id="doughnut-chart" ng-controller="DoughnutCtrl">
-      <div class="panel panel-default">
-        <div class="panel-heading">Doughnut Chart</div>
-        <div class="panel-body">
-          <canvas id="doughnut" class="chart chart-doughnut chart-xs" data="data" labels="labels"></canvas>
-        </div>
-      </div>
-    </div>
-
     <div ng-controller="AppCtrl">
-      <div enter="deleteTweets()">Roll over to load more tweets</div>
-
       <div> 
       	<h2>List of Villages</h2>
       	<table class="table table-striped">
@@ -46,6 +35,14 @@
       </div>
 
     </div>
+<!--     <div class="col-lg-6 col-sm-12" id="doughnut-chart" ng-controller="DoughnutCtrl">
+      <div class="panel panel-default">
+        <div class="panel-heading">Doughnut Chart</div>
+        <div class="panel-body">
+          <canvas id="doughnut" class="chart chart-doughnut chart-xs" data="data" labels="labels"></canvas>
+        </div>
+      </div>
+    </div> -->
 
 <!-- 
 <div>
