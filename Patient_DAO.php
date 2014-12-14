@@ -30,19 +30,19 @@ class Patient_DAO {
 	}
 
 	public function updateAge($name, $healerPhoneNumber, $age) {
-		$statement = "UPDATE tblPatient
+		$statement = $this->db->mysqli->prepare("UPDATE tblPatient
 			SET Age = ?
-			WHERE PatientName = ? AND HealerPhoneNumber = ?";
+			WHERE PatientName = ? AND HealerPhoneNumber = ?");
 
-		$statement->bind_param("ss", $age, $name, $healerPhoneNumber);
+		$statement->bind_param("iss", $age, $name, $healerPhoneNumber);
 
 		$this->db->query($statement);
 	}
 
 	public function updateGender($name, $healerPhoneNumber, $isFemale) {
-		$statement = "UPDATE tblPatient
+		$statement = $this->db->mysqli->prepare("UPDATE tblPatient
 			SET IsFemale = ?
-			WHERE PatientName = ? AND HealerPhoneNumber = ?";
+			WHERE PatientName = ? AND HealerPhoneNumber = ?");
 
 		$statement->bind_param("iss", $isFemale, $name, $healerPhoneNumber);
 
